@@ -1,9 +1,9 @@
 <template>
     <v-row style="height:100%;width:100%" class="pa-0 ma-0">
-      <v-col  sm="6" xs="1" md="6" lg="6" xl="6" cols="12" style="background-color:black">
-        <editor  ref='myEditor' v-model="content" @init="editorInit" lang="html" theme="twilight" width="100%" height="100%"></editor>
+      <v-col  :sm="this.position ? 6 : 12" xs="1" cols="12" :style="[ theme === 'chrome'?  {'background-color':'white'} : {'background-color':'black'}]">
+        <editor  ref='myEditor' v-model="content" @init="editorInit" lang="html" :theme="theme" width="100%" height="100%"></editor>
       </v-col>
-      <v-col  sm="6" xs="1" md="6" lg="6" xl="6" cols="12" class="pa-0 ma-0">
+      <v-col  :sm="this.position ? 6 : 12" xs="1"  cols="12" class="pa-0 ma-0">
         <iframe allow referrerpolicy="same-origin" sandbox="allow-same-origin" :srcdoc="htmlContent" width="100%" height="100%"></iframe>
       </v-col>
     </v-row>
@@ -20,7 +20,9 @@
     data(){
       return{
         htmlContent : '',
-        content: ''
+        content: '',
+        theme: 'twilight',
+        position: true,
       }
     },
     methods:{
@@ -31,6 +33,7 @@
             require('brace/mode/javascript')    //language
             require('brace/mode/less')
             require('brace/theme/twilight')
+            require('brace/theme/chrome')
             require('brace/snippets/javascript') //snippet
       },
       setHTMLContent(){
@@ -75,6 +78,16 @@
           }
         });
         this.htmlContent = errorHTML
+      },
+      changeTheme(){
+        if(this.theme === "twilight"){
+          this.theme = "chrome"
+        }else{
+          this.theme = "twilight"
+        }
+      },
+      changePosition(){
+        this.position = !this.position
       }
     }
   }
