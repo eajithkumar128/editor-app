@@ -1,32 +1,39 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="danger"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-btn small color="white" class="black--text dense" @click="fillHTMLContent">RUN</v-btn>
+        <v-icon @click="saveFile" class="ml-3" large >mdi-content-save</v-icon>
+      </div>
+
+      <v-spacer></v-spacer>
+    </v-app-bar>
+
+    <v-main>
+      <HomeView ref="childComponent"/>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+const HomeView = () => import("./views/Home.vue")
+export default {
+  name: 'App',
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  components:{
+    HomeView
+  },
+  methods:{
+    fillHTMLContent: function() {
+        this.$refs.childComponent.setHTMLContent();
+    },
+    saveFile: function(){
+       this.$refs.childComponent.download();
+    }
+  }
+};
+</script>
