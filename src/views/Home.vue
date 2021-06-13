@@ -1,10 +1,10 @@
 <template>
     <v-row style="height:100%;width:100%" class="pa-0 ma-0">
       <v-col  sm="1" xs="1" md="6" lg="6" xl="6" cols="12" style="background-color:black">
-        <editor ref='myEditor' v-model="content" @init="editorInit" lang="html" theme="twilight" width="100%" height="100%"></editor>
+        <editor  ref='myEditor' v-model="content" @init="editorInit" lang="html" theme="twilight" width="100%" height="100%"></editor>
       </v-col>
       <v-col  sm="1" xs="1" md="6" lg="6" xl="6" cols="12" class="pa-0 ma-0">
-        <iframe :srcdoc="htmlContent" width="100%" height="100%"></iframe>
+        <iframe allow referrerpolicy="same-origin" sandbox="allow-same-origin" :srcdoc="htmlContent" width="100%" height="100%"></iframe>
       </v-col>
     </v-row>
 </template>
